@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: gerov.dev
+Token: 4acc39978a41efd954d589fd5098fac257a84ff9717481753259c67224c566b7
