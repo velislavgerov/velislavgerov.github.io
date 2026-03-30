@@ -4,9 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Velislav Gerov - Tech Lead & Full-Stack Engineer">
+  <meta name="description" content="Full-stack engineer with 9+ years of experience, now focused on building LLM-powered applications and exploring agentic development workflows.">
   <meta name="author" content="Velislav Gerov">
-  <title>Velislav Gerov - Tech Lead</title>
+  <meta property="og:title" content="Velislav Gerov">
+  <meta property="og:description" content="Full-stack engineer with 9+ years of experience, now focused on building LLM-powered applications and exploring agentic development workflows.">
+  <meta property="og:url" content="https://gerov.dev">
+  <meta property="og:type" content="website">
+  <title>Velislav Gerov</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -595,8 +599,8 @@
       const charWidth = 4;
       const charHeight = 4;
 
-      let asciiWidth = Math.floor(window.innerWidth / charWidth);
-      let asciiHeight = Math.floor(window.innerHeight / charHeight);
+      let asciiWidth = Math.floor(backgroundDiv.offsetWidth / charWidth);
+      let asciiHeight = Math.floor(backgroundDiv.offsetHeight / charHeight);
 
       const basePattern = SWISS_ARMY_KNIFE;
       const knifeLines = basePattern.split('\n');
