@@ -594,13 +594,24 @@
 
     @media (max-width: 640px) {
       .chat-modal[aria-hidden="false"] {
-        align-items: flex-end;
+        align-items: stretch;
       }
 
       .chat-panel {
-        max-height: 90vh;
+        height: 100vh;
+        height: 100dvh;
+        max-height: none;
         margin: 0;
         max-width: 100%;
+        border: none;
+      }
+
+      .chat-messages {
+        min-height: 0;
+      }
+
+      .chat-input-row {
+        flex-shrink: 0;
       }
     }
 
@@ -1056,9 +1067,15 @@
         "What's his tech stack?"
       ];
 
+      var savedScrollY = 0;
+
       function open() {
         modal.setAttribute('aria-hidden', 'false');
+        savedScrollY = window.scrollY;
         document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = -savedScrollY + 'px';
+        document.body.style.width = '100%';
         posthog.capture('assistant_opened');
         if (!initialized) {
           initialized = true;
@@ -1081,6 +1098,10 @@
       function close() {
         modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, savedScrollY);
       }
 
       toggleBtn.addEventListener('click', open);
@@ -1091,6 +1112,16 @@
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') close();
       });
+
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', function () {
+          if (modal.getAttribute('aria-hidden') === 'false') {
+            requestAnimationFrame(function () {
+              input.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+            });
+          }
+        });
+      }
 
       function addMessage(type, content) {
         var div = document.createElement('div');
