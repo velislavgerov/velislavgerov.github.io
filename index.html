@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Velislav Gerov - Tech Lead & Full-Stack Engineer">
+  <meta name="author" content="Velislav Gerov">
+  <title>Velislav Gerov - Tech Lead</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      /* Light mode colors */
+      --color-bg: #F0EEE6;
+      --color-text: #1A1A1A;
+      --color-accent: #1A1A1A;
+      --color-border: rgba(26, 26, 26, 0.85);
+      --color-flow: rgba(26, 26, 26, 0.7);
+
+      --font-header: 'Crimson Pro', serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+    }
+
+    :root.dark-mode {
+      /* Dark mode colors */
+      --color-bg: #1A1A1A;
+      --color-text: #F0EEE6;
+      --color-accent: #F0EEE6;
+      --color-border: rgba(240, 238, 230, 0.85);
+      --color-flow: rgba(240, 238, 230, 0.7);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not(.light-mode) {
+        /* Dark mode colors */
+        --color-bg: #1A1A1A;
+        --color-text: #F0EEE6;
+        --color-accent: #F0EEE6;
+        --color-border: rgba(240, 238, 230, 0.85);
+        --color-flow: rgba(240, 238, 230, 0.7);
+      }
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ASCII Portrait Background - contained to content width */
+    #asciiBackground {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 700px;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      font-family: var(--font-mono);
+      font-size: 4px;
+      line-height: 1;
+      letter-spacing: 0;
+      color: var(--color-flow);
+      user-select: none;
+      opacity: 0.08;
+      overflow: hidden;
+      white-space: pre;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--color-border);
+      position: relative;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .theme-toggle:hover {
+      opacity: 1;
+    }
+
+    .theme-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--color-text);
+    }
+
+    .theme-toggle .sun-icon {
+      display: none;
+    }
+
+    .theme-toggle .moon-icon {
+      display: block;
+    }
+
+    .dark-mode .theme-toggle .sun-icon {
+      display: block;
+    }
+
+    .dark-mode .theme-toggle .moon-icon {
+      display: none;
+    }
+
+    h1 {
+      font-family: var(--font-header);
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--color-text);
+      opacity: 0.7;
+      margin-bottom: 24px;
+    }
+
+    .subtitle a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .subtitle a:hover {
+      text-decoration: underline;
+    }
+
+    .meta {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.8;
+      opacity: 0.8;
+    }
+
+    .location {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .location svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: var(--color-text);
+      stroke-width: 2;
+      opacity: 0.8;
+    }
+
+    .meta a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .meta a:hover {
+      border-bottom-color: var(--color-text);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: none;
+    }
+
+    .social-icons svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--color-text);
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .social-icons a:hover svg {
+      opacity: 1;
+    }
+
+    section {
+      margin-bottom: 50px;
+    }
+
+    h2 {
+      font-family: var(--font-header);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-border {
+      border: 1px solid var(--color-border);
+      padding: 30px;
+      margin: 30px 0;
+    }
+
+    .project {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+    }
+
+    .project:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .job-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .job-title a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .job-title a:hover {
+      border-bottom-color: var(--color-text);
+    }
+
+    .job-date {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      opacity: 0.6;
+    }
+
+    .job-desc {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      opacity: 0.9;
+    }
+
+    .read-more {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid var(--color-border);
+      transition: border-color 0.2s;
+      display: inline-block;
+    }
+
+    .read-more:hover {
+      border-bottom-color: var(--color-text);
+    }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid var(--color-border);
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #asciiBackground {
+        animation: none !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        font-size: 15px;
+      }
+
+      .container {
+        padding: 40px 24px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .section-border {
+        padding: 20px;
+      }
+
+      .job-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      #asciiBackground {
+        font-size: 4px;
+        line-height: 0.5;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ASCII Background -->
+  <div id="asciiBackground"></div>
+
+  <div class="container">
+    <header>
+      <button class="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zM13 2h-2v3h2V2zm0 17h-2v3h2v-3zM5 11H2v2h3v-2zm17 0h-3v2h3v-2zM6.3 4.9L4.9 6.3l2.1 2.1 1.4-1.4-2.1-2.1zm12.7 10.7l-1.4 1.4 2.1 2.1 1.4-1.4-2.1-2.1zm-2.1-10.7l-2.1 2.1 1.4 1.4 2.1-2.1-1.4-1.4zM6.3 19.1l1.4-1.4-2.1-2.1-1.4 1.4 2.1 2.1z" />
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+      <h1>Velislav Gerov</h1>
+      <div class="subtitle">Tech Lead at <a href="https://www.walkingonearth.com/" target="_blank"
+          rel="noopener noreferrer">Walking on Earth</a></div>
+      <div class="meta">
+        <span class="location">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" />
+            <path
+              d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg>
+          London, United Kingdom
+        </span><br>
+        <div class="social-icons">
+          <a href="https://github.com/velislavgerov" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <a href="https://x.com/velislavgerov" target="_blank" rel="noopener noreferrer" aria-label="X">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+            <span>X</span>
+          </a>
+          <a href="https://linkedin.com/in/velislavgerov" target="_blank" rel="noopener noreferrer"
+            aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Resume">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Resume</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <p style="font-size: 1.05rem; line-height: 1.7;">
+        Building the world's first AI stress coach for high-performers at <a href="https://www.walkingonearth.com/"
+          target="_blank" rel="noopener noreferrer"
+          style="color: inherit; text-decoration: none; border-bottom: 1px solid var(--color-border); transition: border-color 0.2s;">WONE
+          (Walking on Earth)</a>. Full-stack engineer with 9+ years of experience, now focused on building LLM-powered applications and autonomous coding systems.
+      </p>
+    </section>
+
+    <section>
+      <h2>Recent Projects</h2>
+      <div class="section-border">
+
+        <article class="project">
+          <div class="job-header">
+            <h3 class="job-title"><a href="https://pozdravi.gerov.dev/en" target="_blank"
+                rel="noopener noreferrer">Pozdravi</a></h3>
+            <div class="job-date">2026 – Present</div>
+          </div>
+          <p class="job-desc">
+            AI greeting card generator for the Bulgarian market. Shareable cards, an admin content engine for
+            occasion-based campaigns, and a full payments backend — prototyped in Lovable, then rebuilt into a product.
+          </p>
+          <a href="https://pozdravi.gerov.dev/en" target="_blank" rel="noopener noreferrer" class="read-more">Try it
+            →</a>
+        </article>
+
+        <article class="project">
+          <div class="job-header">
+            <h3 class="job-title"><a href="https://github.com/thunderclawai" target="_blank"
+                rel="noopener noreferrer">Thunderclaw</a></h3>
+            <div class="job-date">2026</div>
+          </div>
+          <p class="job-desc">
+            An autonomous software factory that writes, reviews, and ships code end-to-end — including building games.
+            An OpenClaw experiment that ran for about a month.
+          </p>
+          <a href="https://github.com/thunderclawai" target="_blank" rel="noopener noreferrer" class="read-more">View on
+            GitHub →</a>
+        </article>
+
+        <article class="project">
+          <div class="job-header">
+            <h3 class="job-title"><a href="https://www.catgen.app/" target="_blank" rel="noopener noreferrer">Cat
+                Gen</a></h3>
+            <div class="job-date">2025 – Present</div>
+          </div>
+          <p class="job-desc">
+            AI-powered app that transforms your selfie into a personalized feline character — complete with breed,
+            personality traits, and biography. Built entirely with the help of agentic coding assistants.
+          </p>
+          <a href="https://www.catgen.app/" target="_blank" rel="noopener noreferrer" class="read-more">Sign up for the
+            beta →</a>
+        </article>
+
+        <article class="project">
+          <div class="job-header">
+            <h3 class="job-title">Stealth Analytics</h3>
+            <div class="job-date">2025</div>
+          </div>
+          <p class="job-desc">
+            A business intelligence platform with automated data pipelines and interactive visualizations. Ask questions
+            in plain English, get SQL-backed answers.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <footer>
+      <pre style="margin: 20px auto 0; line-height: 1.1; font-size: 0.65rem; text-align: left; display: inline-block;">  ┌─────────┐
+  │ ▓▓▓▓▓▓▓ │
+  │ ▓ ◉ ◉ ▓ │
+  │ ▓▓▓▓▓▓▓ │
+  └─────────┘
+    |||||||
+    </pre>
+      <div>Updated March 2026</div>
+    </footer>
+  </div>
+
+  <script>
+    // Theme Toggle
+    (function () {
+      const themeToggle = document.querySelector('.theme-toggle');
+      const root = document.documentElement;
+
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        root.classList.add(savedTheme);
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.classList.add(prefersDark ? 'dark-mode' : 'light-mode');
+      }
+
+      themeToggle.addEventListener('click', () => {
+        const isDark = root.classList.contains('dark-mode');
+
+        if (isDark) {
+          root.classList.remove('dark-mode');
+          root.classList.add('light-mode');
+          localStorage.setItem('theme', 'light-mode');
+        } else {
+          root.classList.remove('light-mode');
+          root.classList.add('dark-mode');
+          localStorage.setItem('theme', 'dark-mode');
+        }
+      });
+    })();
+
+    // ASCII Portrait Background Animation
+    (function () {
+      const backgroundDiv = document.getElementById('asciiBackground');
+
+      if (!backgroundDiv) return;
+
+      const SWISS_ARMY_KNIFE = `....................................................................................................
+......................................::::..........................................................
+....................................:-*==*-.........................................................
+..................................:-*=----=#:.......................................................
+................................::#+%=-----%:.......................................................
+...............................:=+*#=-----+::.......................................................
+..............................:*+**=----=*:.......................:++::.............................
+............................::#*#*----=+=:........................:+-*-:............................
+...........................::+*%=---=#-::........................:==--=+::..........................
+..........................:++#+---+=::...........................:#-----+:..........................
+.........................:*=----=*::.............................==------*:.........................
+.......................::*------+-...............................*--------+:........................
+......................:-*-------+-..............................:*--------+:........................
+......................++--------=*..............................:*-------#*+........................
+...................::*=-----------+#+#::........................:*-------%*%:.......................
+...................-*---------------+*==+++++++++++++++=::......:*-------%**-.......................
+...............:::-=*%%%%%%*+---=*-*+---------------------*+=::..*-------#*==.......................
+..............:+#*%##*#######%#==*+--------------------------=#:.+-------=#=+.......................
+.............-*+%##*############%---------------------------+*::.==-------#*+.......................
+.::****+-:::=**++=+%###############=------------------=**=-:::...-+-------+#+.......................
+.-#*==++*+**#**%#+*#%################*+++++++++++==-::...........:#--------=+.......................
+.:++*+--::+#*%+%##%%##################%=::.......................:#---------+.......................
+....:*#***#==*-*########################%+:......................:*---------+::.....................
+...........:+*#+############################:....................:==--------+::.....................
+...........::-**#%###########################*:..................:-=--------==:.....................
+..............:++=*%###########################*::................-=--------=+:.....................
+...............::*++##*###########################:::.............:+---------#:.....................
+..................:+++#############################%::............:+---------#:.....................
+...................::=#+*%#*##########################-...........:*---------#:.....................
+......................:-*+*%#*##########################-:........:*---------*:..........::::::--:..
+.........................:*++%#*##########################-:......:+=--------+-........:-+*=-----*..
+..........................::*++%#*##########################:::...:-+--------==.......-*=-------=+..
+...........................:::=*+##*##########################::..::*---------=.......:*=-------*:..
+...............................:=*+*%#*#########################-:..*---------=:.......::++---#*-...
+................................::=*+*%#*#########################-:+---------=::-==:....:#=+%*+:...
+...................................:=*+*%###########################+=--------+++-+*-..:=+-**#+:....
+..................................:+##%%**###########################%=-------#--+-:..:==-+%++......
+..........:::-::::-***+::=****:+*****%***#*%#%#########################%*====#=--+-:.:*=-=@*-:......
+.........:++=+*++===*+-*#++**++#**=--##****##=+%#########################%#++=----+++*=--++=:.......
+........+#==+:+==#+=:-*-#*+::*=*%:..:+***+##----+%#########################@+------------+-:........
+........-+*#..:*=+%:..-+-*..:=*+*......:-#=----+%*+%#########################%=---------*-:.........
+........:*=:...:++::..::::....:::.....:#=-----*:=#+#+##########################%=------+:...........
+....................................:=#+----+=:.::-**#+*%#######################%+---=*::...........
+...................................:+++---=*:.......:**#**%#######################+-=*:.............
+................................::-*+=---+=::........::+****%#####################%=+::.............
+................................:++#----*:...............:%*%+%####*##############%=................
+...............................:*+*#*==+:..................:**#*#%################*:................
+..............................:++==*+*-:....................::=****%####*#########-:................
+............................:=+*---++:..........................-*##*#%####*####*::.................
+..........................::#*+--=*::............................::=#+++#%%###-::...................
+.........................::*%=-=#-::................................:::::::::::.....................
+.........................+++-+*::...................................................................
+.......................:*#++=:::....................................................................
+.......................:+-..........................................................................
+..................................................................................................`;
+
+      const charWidth = 4;
+      const charHeight = 4;
+
+      let asciiWidth = Math.floor(window.innerWidth / charWidth);
+      let asciiHeight = Math.floor(window.innerHeight / charHeight);
+
+      const basePattern = SWISS_ARMY_KNIFE;
+      const knifeLines = basePattern.split('\n');
+      const knifeWidth = knifeLines[0] ? knifeLines[0].length : 0;
+      const knifeHeight = knifeLines.length;
+
+      const numKnives = 5;
+      const knives = [];
+
+      for (let i = 0; i < numKnives; i++) {
+        knives.push({
+          x: Math.random() * asciiWidth,
+          y: Math.random() * asciiHeight,
+          vx: (Math.random() - 0.5) * 4,
+          vy: (Math.random() - 0.5) * 4,
+        });
+      }
+
+      let lastFrameTime = 0;
+      const frameDelay = 1000 / 2; // 2 fps
+
+      function animate(currentTime) {
+        if (currentTime - lastFrameTime < frameDelay) {
+          requestAnimationFrame(animate);
+          return;
+        }
+        lastFrameTime = currentTime;
+
+        for (let knife of knives) {
+          knife.x += knife.vx;
+          knife.y += knife.vy;
+
+          if (knife.x < 0 || knife.x > asciiWidth) knife.vx *= -1;
+          if (knife.y < 0 || knife.y > asciiHeight) knife.vy *= -1;
+
+          knife.x = Math.max(0, Math.min(asciiWidth, knife.x));
+          knife.y = Math.max(0, Math.min(asciiHeight, knife.y));
+        }
+
+        let ascii = '';
+        for (let y = 0; y < asciiHeight; y++) {
+          let row = '';
+          for (let x = 0; x < asciiWidth; x++) {
+            let char = ' ';
+
+            for (let knife of knives) {
+              const relX = Math.floor(x - knife.x);
+              const relY = Math.floor(y - knife.y);
+
+              if (relX >= 0 && relX < knifeWidth && relY >= 0 && relY < knifeHeight) {
+                const knifeLine = knifeLines[relY];
+                if (knifeLine && knifeLine[relX]) {
+                  const knifeChar = knifeLine[relX];
+                  if (knifeChar !== ' ' && knifeChar !== '.') {
+                    char = knifeChar;
+                    break;
+                  }
+                }
+              }
+            }
+
+            row += char;
+          }
+          ascii += row + '\n';
+        }
+
+        backgroundDiv.textContent = ascii;
+        requestAnimationFrame(animate);
+      }
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!prefersReducedMotion) {
+        animate();
+      }
+    })();
+  </script>
+</body>
+
+</html>
