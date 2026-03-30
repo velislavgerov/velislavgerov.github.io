@@ -550,6 +550,8 @@
 
       if (!backgroundDiv) return;
 
+      // The Swiss Army Knife — a metaphor for how I see myself as an engineer:
+      // versatile, dependable, and useful across many different contexts.
       const SWISS_ARMY_KNIFE = `....................................................................................................
 ......................................::::..........................................................
 ....................................:-*==*-.........................................................
@@ -630,10 +632,10 @@
 
       for (let i = 0; i < numKnives; i++) {
         knives.push({
-          x: Math.random() * asciiWidth,
-          y: Math.random() * asciiHeight,
-          vx: (Math.random() - 0.5) * 4,
-          vy: (Math.random() - 0.5) * 4,
+          x: Math.random() * Math.max(0, asciiWidth - knifeWidth),
+          y: Math.random() * Math.max(0, asciiHeight - knifeHeight),
+          vx: (Math.random() < 0.5 ? -1 : 1) * (2 + Math.random() * 2),
+          vy: (Math.random() < 0.5 ? -1 : 1) * (2 + Math.random() * 2),
         });
       }
 
@@ -647,15 +649,17 @@
         }
         lastFrameTime = currentTime;
 
+        const maxX = asciiWidth - knifeWidth;
+        const maxY = asciiHeight - knifeHeight;
+
         for (let knife of knives) {
           knife.x += knife.vx;
           knife.y += knife.vy;
 
-          if (knife.x < 0 || knife.x > asciiWidth) knife.vx *= -1;
-          if (knife.y < 0 || knife.y > asciiHeight) knife.vy *= -1;
-
-          knife.x = Math.max(0, Math.min(asciiWidth, knife.x));
-          knife.y = Math.max(0, Math.min(asciiHeight, knife.y));
+          if (knife.x <= 0) { knife.x = 0; knife.vx = Math.abs(knife.vx); }
+          if (knife.x >= maxX) { knife.x = maxX; knife.vx = -Math.abs(knife.vx); }
+          if (knife.y <= 0) { knife.y = 0; knife.vy = Math.abs(knife.vy); }
+          if (knife.y >= maxY) { knife.y = maxY; knife.vy = -Math.abs(knife.vy); }
         }
 
         let ascii = '';
