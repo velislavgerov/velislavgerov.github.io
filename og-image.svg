@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#1A1A1A"/>
+
+  <!-- Subtle grid -->
+  <line x1="0" y1="315" x2="1200" y2="315" stroke="#F0EEE6" stroke-width="0.5" opacity="0.08"/>
+  <line x1="600" y1="0" x2="600" y2="630" stroke="#F0EEE6" stroke-width="0.5" opacity="0.08"/>
+
+  <!-- Name -->
+  <text
+    x="600"
+    y="255"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="80"
+    font-weight="bold"
+    fill="#F0EEE6"
+    text-anchor="middle"
+    letter-spacing="-1"
+  >Velislav Gerov</text>
+
+  <!-- Divider -->
+  <line x1="480" y1="285" x2="720" y2="285" stroke="#F0EEE6" stroke-width="1" opacity="0.4"/>
+
+  <!-- Tagline -->
+  <text
+    x="600"
+    y="340"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="26"
+    fill="#F0EEE6"
+    text-anchor="middle"
+    opacity="0.7"
+  >Full-stack engineer · LLM-powered apps · Agentic workflows</text>
+
+  <!-- URL -->
+  <text
+    x="600"
+    y="410"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="22"
+    fill="#F0EEE6"
+    text-anchor="middle"
+    opacity="0.4"
+  >gerov.dev</text>
+</svg>
