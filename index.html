@@ -358,25 +358,64 @@
       align-items: center;
       gap: 6px;
       background: none;
-      border: none;
+      border: 1px solid var(--color-border);
+      border-radius: 100px;
       cursor: pointer;
-      font-family: var(--font-body);
-      font-size: inherit;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
       color: var(--color-text);
-      padding: 0;
-    }
-
-    .chat-toggle svg {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: var(--color-text);
+      padding: 6px 16px 6px 12px;
+      margin-top: 20px;
       opacity: 0.8;
       transition: opacity 0.2s;
     }
 
-    .chat-toggle:hover svg {
+    .chat-toggle:hover {
       opacity: 1;
+    }
+
+    .chat-toggle svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: var(--color-text);
+    }
+
+    /* Floating chat trigger */
+    .chat-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 50;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: var(--color-bg);
+      color: var(--color-text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+
+    .chat-fab.visible {
+      opacity: 0.7;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .chat-fab:hover {
+      opacity: 1;
+    }
+
+    .chat-fab svg {
+      fill: none;
+      stroke: var(--color-text);
     }
 
     .chat-modal {
@@ -617,6 +656,13 @@
       .chat-input-row input {
         font-size: 16px;
       }
+
+      .chat-fab {
+        bottom: 16px;
+        right: 16px;
+        width: 44px;
+        height: 44px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -627,6 +673,10 @@
       .chat-typing::after {
         animation: none;
         content: '...';
+      }
+
+      .chat-fab {
+        transition: none;
       }
     }
 
@@ -746,13 +796,6 @@
             </svg>
             <span>Email</span>
           </a>
-          <button class="chat-toggle" aria-label="Assistant">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="none" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <span>Assistant</span>
-          </button>
         </div>
       </div>
     </header>
@@ -765,6 +808,13 @@
           (Walking on Earth)</a>. Full-stack engineer with 9+ years of experience, now focused on
         LLM-powered applications and agentic development workflows.
       </p>
+      <button class="chat-toggle" aria-label="Chat with my resume">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Chat with my resume</span>
+      </button>
     </section>
 
     <section>
@@ -839,11 +889,18 @@
     </footer>
   </div>
 
-  <!-- Chat Modal -->
-  <div id="chatModal" class="chat-modal" role="dialog" aria-label="Assistant" aria-hidden="true">
+  <!-- Chat FAB + Modal -->
+  <button id="chatFab" class="chat-fab" aria-label="Chat with my resume" style="display: none;">
+    <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+
+  <div id="chatModal" class="chat-modal" role="dialog" aria-label="Resume Chat" aria-hidden="true">
     <div class="chat-panel">
       <div class="chat-header">
-        <h3 class="chat-title">Assistant</h3>
+        <h3 class="chat-title">Resume Chat</h3>
         <button class="chat-close" aria-label="Close chat">&times;</button>
       </div>
       <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"></div>
@@ -1058,6 +1115,8 @@
       const input = document.getElementById('chatInput');
       const toggleBtn = document.querySelector('.chat-toggle');
       const closeBtn = modal.querySelector('.chat-close');
+      const chatFab = document.getElementById('chatFab');
+      const headerEl = document.querySelector('header');
 
       let conversation = [];
       let isStreaming = false;
@@ -1080,6 +1139,7 @@
         document.body.style.position = 'fixed';
         document.body.style.top = -savedScrollY + 'px';
         document.body.style.width = '100%';
+        chatFab.classList.remove('visible');
         posthog.capture('assistant_opened');
         if (!initialized) {
           initialized = true;
@@ -1106,9 +1166,14 @@
         document.body.style.top = '';
         document.body.style.width = '';
         window.scrollTo(0, savedScrollY);
+        // Re-show FAB if header is scrolled past
+        if (headerEl.getBoundingClientRect().bottom < 0) {
+          chatFab.classList.add('visible');
+        }
       }
 
       toggleBtn.addEventListener('click', open);
+      chatFab.addEventListener('click', open);
       closeBtn.addEventListener('click', close);
       modal.addEventListener('click', function (e) {
         if (e.target === modal) close();
@@ -1116,6 +1181,21 @@
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') close();
       });
+
+      // Show floating button when header scrolls out of view
+      var fabObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            chatFab.style.display = 'none';
+            chatFab.classList.remove('visible');
+          } else {
+            chatFab.style.display = 'flex';
+            chatFab.offsetHeight; // force reflow for transition
+            chatFab.classList.add('visible');
+          }
+        });
+      }, { threshold: 0 });
+      fabObserver.observe(headerEl);
 
       if (window.visualViewport) {
         window.visualViewport.addEventListener('resize', function () {
