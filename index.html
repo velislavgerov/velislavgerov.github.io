@@ -327,6 +327,13 @@
     }
 
     @media (max-width: 640px) {
+      #asciiBackground {
+        top: 0;
+        left: 0;
+        transform: none;
+        max-width: 100%;
+      }
+
       body {
         font-size: 15px;
       }
@@ -596,11 +603,19 @@
 .......................:+-..........................................................................
 ..................................................................................................`;
 
-      const charWidth = 4;
-      const charHeight = 4;
+      const testSpan = document.createElement('span');
+      testSpan.style.cssText = 'position:absolute;visibility:hidden;font-family:' +
+        getComputedStyle(backgroundDiv).fontFamily +
+        ';font-size:4px;line-height:1;white-space:pre;';
+      testSpan.textContent = 'X';
+      document.body.appendChild(testSpan);
+      const charW = testSpan.getBoundingClientRect().width;
+      const charH = testSpan.getBoundingClientRect().height;
+      document.body.removeChild(testSpan);
 
-      let asciiWidth = Math.floor(backgroundDiv.offsetWidth / charWidth);
-      let asciiHeight = Math.floor(backgroundDiv.offsetHeight / charHeight);
+      const rect = backgroundDiv.getBoundingClientRect();
+      let asciiWidth = Math.floor(rect.width / charW);
+      let asciiHeight = Math.floor(rect.height / charH);
 
       const basePattern = SWISS_ARMY_KNIFE;
       const knifeLines = basePattern.split('\n');
