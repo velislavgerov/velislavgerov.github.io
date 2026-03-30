@@ -1,0 +1,13 @@
+name = "assistant"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://gerov.dev"
+RATE_LIMIT_MAX = "10"
+RATE_LIMIT_WINDOW = "3600"
+MAX_CONVERSATION_LENGTH = "20"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "c614fd37a40f406591d2ede05e865db1"
