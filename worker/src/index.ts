@@ -31,17 +31,17 @@ Email: velislav.gerov@gmail.com
 Website: gerov.dev
 
 PROFILE:
-Full-stack software engineer with 9+ years experience building scalable web and mobile applications using TypeScript, React, Python and AWS. Proven track record of technical leadership, architecting reliable cloud-native systems, and delivering robust technical solutions through end-to-end system ownership and engineering excellence.
+Full-stack engineer with 9+ years experience building infrastructure, data pipelines, and AI-powered systems end-to-end using Python, TypeScript, and AWS. Most recently a key developer on Ori, an AI coaching agent built on Claude and Amazon Bedrock, with hands-on experience shipping products across OpenAI, Google Vertex AI, and Supabase. Currently Tech Lead at Walking on Earth, a wellness technology company.
 
 WORK EXPERIENCE:
 
 1. Tech Lead, Walking on Earth, London (Jan 2024 - Present)
+   - Key developer on Ori, a stress intelligence coach built on Claude and Amazon Bedrock, handling sensitive user data. Owned platform integration, mobile interface, insights engine, feedback mechanisms, evaluation pipelines for model output quality, and reporting dashboards with data privacy as a core requirement
    - Architected infrastructure supporting 5x user growth and 50x traffic spikes through comprehensive load testing and AWS optimisation
-   - Built AI-powered smart coach prototype using RAG workflows with OpenAI and Amazon Bedrock, delivering personalised insights from psychometric data
    - Optimised biometrics data pipeline, reducing database utilisation from 40% to <5% through root cause analysis and pipeline redesign
    - Managed team of full-stack engineers, conducting performance reviews and technical mentorship, resulting in 3 autonomous engineers capable of feature leadership
-   - Established AI-native development practices using GitHub Copilot and Claude Code, improving code quality, automated testing coverage, and knowledge sharing
-   - Implemented Mixpanel analytics across Django, React, and React Native, consolidating data sources for organization-wide self-service analytics
+   - Established AI-native development practices using Claude Code and monorepo architecture, driving adoption through custom skills and knowledge sharing sessions
+   - Implemented Mixpanel analytics across Django, React, and React Native, consolidating data sources and enabling organisation-wide self-service analytics for non-technical stakeholders
 
 2. Senior Full Stack Developer, Walking on Earth, London (Mar 2023 - Dec 2023)
    - Built comprehensive stress resilience measurement system combining psychometric and biometrics data
@@ -59,7 +59,7 @@ WORK EXPERIENCE:
    - Designed flexible financial system using double-entry bookkeeping principles supporting arbitrary currencies with comprehensive audit trails
    - Built React-based casino floor monitoring interfaces enabling operators to track multiple live games with financial oversight
    - Led React migration initiative while mentoring junior developer
-   - Developed embedded system integration for casino management, supporting tender transactions and card authorisation workflows
+   - Developed table operator interface facilitating user inputs and API communication between custom embedded systems and casino management system, supporting tender transactions and card authorisation workflows
 
 5. Software Developer, TelebidPro, Sofia (Sept 2018 - May 2019)
    - Owned multi-location rewards distribution platform, integrating online environment and developing display APIs
@@ -71,10 +71,11 @@ WORK EXPERIENCE:
 
 SIDE PROJECTS:
 
-- Pozdravi (2026 - Present): AI greeting card generator for the Bulgarian market. Shareable cards, admin content engine, payments backend. Prototyped in Lovable, rebuilt into product. https://pozdravi.gerov.dev/en
-- Thunderclaw (2026): Autonomous software factory that writes, reviews, and ships code end-to-end — including building games. An OpenClaw experiment. https://github.com/thunderclawai
-- Cat Gen (2025 - Present): AI-powered mobile app (React Native, Expo) transforming selfies into cat characters. Uses OpenAI GPT-4o with Supabase backend. https://www.catgen.app/
-- Stealth Analytics (2025 - Present): Business intelligence platform using Claude Code, Python, SQLite, Streamlit with automated ETL pipelines. Natural language query engine using OpenAI GPT-5.
+- Chirak (2026): Open-source learning framework that turns Claude Code into a guided learning partner. Built on the Bulgarian craft guild tradition — progression based on skill demonstration. Available as a Claude Code plugin. https://chirak.gerov.dev
+- Pozdravi (2026): AI greeting card generator for the Bulgarian market. Shareable cards, admin content engine for occasion-based campaigns, full payments backend. Built end-to-end using coding agents, powered by Google Vertex AI, deployed on Supabase and Cloudflare with PostHog, Sentry, and Stripe integration. https://pozdravi.gerov.dev/en
+- Thunderclaw (2026): Autonomous software factory that writes, reviews, and ships code end-to-end, operated via Telegram from a phone with minimal hands-on intervention. An OpenClaw experiment running for approximately one month. https://github.com/thunderclawai
+- Cat Gen (2025): AI-powered mobile app (React Native, Expo) transforming selfies into cat characters. Uses OpenAI for character generation and personality trait matching, with Supabase backend. https://www.catgen.app/
+- Stealth Analytics (2025): Business intelligence platform using Claude Code, Python, SQLite, Streamlit with automated ETL pipelines and interactive Plotly visualizations. Natural language query engine using OpenAI with database schema introspection for safe SQL generation.
 - Docxforms (2021): Web app using Next.js for uploading .docx templates and generating dynamic web forms.
 
 EDUCATION:
@@ -86,7 +87,7 @@ CERTIFICATES:
 - Agile Software Development - Software University (Mar 2020), Grade: 6.00/6.00
 
 CORE SKILLS:
-Technical Leadership, System Architecture, API Development, Full-Stack Development, Mobile App Development, TypeScript, JavaScript, React, React Native, Python, SQL, Linux, Claude Code, OpenAI Platform, RAG Workflows, Amazon Bedrock, Amazon CloudFront, Amazon EC2, Amazon RDS, Amazon SQS, Amazon S3, AWS Elastic Beanstalk, DevOps, CI/CD`;
+Technical Leadership, System Architecture, API Development, Full-Stack Development, Mobile App Development, TypeScript, JavaScript, React, React Native, Python, SQL, Linux, Claude Code, OpenAI Platform, Google Vertex AI, RAG Workflows, Amazon Bedrock, AWS (EC2, RDS, SQS, S3, CloudFront, Elastic Beanstalk), Terraform, CDK, Cloudflare Workers, Supabase, Data Pipelines, Observability, Internal Tooling, DevOps, CI/CD, Sentry, Mixpanel, PostHog`;
 
 function corsHeaders(origin: string): Record<string, string> {
   return {
