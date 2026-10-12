@@ -30,3 +30,5 @@
 
 
 .location{display:flex;align-items:center;gap:10px;margin:14px 0 0;font-size:13px;line-height:20px;color:var(--muted)}.location svg{display:block;flex:none;width:16px;height:16px}
+
+.personal-links a:hover,footer a:hover{ text-decoration:none }
