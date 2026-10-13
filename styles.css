@@ -24,7 +24,7 @@
 @media(max-width:600px){:root{--motion-slow:380ms}}
 @media(prefers-reduced-motion:reduce){.page{animation:none}.personal-links a,.personal-links a::after,footer a,footer a::after,.project-row::before,.project-row .app-icon,.project-row .outbound{transition:none}.project-row:hover .app-icon,.project-row:focus-visible .app-icon,.project-row:active .app-icon,.project-row:hover .outbound,.project-row:focus-visible .outbound{transform:none}}
 
-.personal-links .resume-link{color:var(--accent);font-weight:500}
+
 
 
 
